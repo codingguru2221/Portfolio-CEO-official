@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 import TechUniverse from '@/components/TechUniverse';
 import photo1 from "@assets/bhai_1783940902236.jpeg";
-import photo2 from "@assets/Hackthon__1783941038153.jpg";
+import photo2 from "@assets/2_nd__1783944009550.jpeg";
 import cert1 from "@assets/Hackthon__1783941038153.jpg";
 import cert2 from "@assets/image_1783941205684.png";
 import cert3 from "@assets/image_1783941239713.png";
