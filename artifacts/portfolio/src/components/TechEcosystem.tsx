@@ -1,212 +1,213 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion } from "framer-motion";
 
-const categories = [
+const orbits = [
   {
-    id: "ai",
-    label: "AI",
-    color: "#ec4899",
-    angle: 90,
-    items: ["Gemini", "OpenAI", "TensorFlow", "LangChain", "OpenCV", "Ollama"],
+    radius: 110,
+    speed: 0.006,
+    color: "#00d4ff",
+    label: "Languages",
+    nodes: ["Python", "JavaScript", "Java", "C++", "HTML/CSS"],
   },
   {
-    id: "cloud",
-    label: "Cloud",
-    color: "#3b82f6",
-    angle: 38,
-    items: ["AWS", "Docker", "Linux", "GitHub", "Git", "Vercel"],
-  },
-  {
-    id: "security",
-    label: "Security",
-    color: "#ef4444",
-    angle: 142,
-    items: ["Cryptography", "EDR", "OCR", "Pen Testing", "Firewalls"],
-  },
-  {
-    id: "backend",
-    label: "Backend",
-    color: "#22d3ee",
-    angle: 0,
-    items: ["Flask", "Spring Boot", "Express", "Python", "Java"],
-  },
-  {
-    id: "frontend",
-    label: "Frontend",
+    radius: 190,
+    speed: 0.004,
     color: "#a855f7",
-    angle: 180,
-    items: ["React", "HTML5", "CSS3", "JavaScript", "Tailwind"],
+    label: "Databases",
+    nodes: ["MySQL", "PostgreSQL", "MongoDB", "Redis"],
   },
   {
-    id: "database",
-    label: "Database",
+    radius: 280,
+    speed: 0.0025,
+    color: "#22d3ee",
+    label: "Cloud",
+    nodes: ["AWS", "Docker", "Git", "Linux", "GitHub"],
+  },
+  {
+    radius: 375,
+    speed: 0.0018,
     color: "#f59e0b",
-    angle: 322,
-    items: ["MySQL", "PostgreSQL", "MongoDB", "Redis"],
+    label: "AI Tools",
+    nodes: ["Gemini", "OpenAI", "TensorFlow", "Ollama", "LangChain"],
   },
   {
-    id: "tools",
-    label: "Tools",
-    color: "#10b981",
-    angle: 218,
-    items: ["VS Code", "Postman", "Linux Terminal", "GitHub Actions"],
-  },
-  {
-    id: "projects",
-    label: "Projects",
-    color: "#6366f1",
-    angle: 270,
-    items: ["CryptoShield", "Trinetra", "AI Study", "TheStudyCore", "Identity Verifier"],
+    radius: 465,
+    speed: 0.0012,
+    color: "#ef4444",
+    label: "Security",
+    nodes: ["Cryptography", "EDR", "OCR", "Pen Testing", "Firewalls"],
+    isShield: true,
   },
 ];
 
 export default function TechEcosystem() {
-  const [active, setActive] = useState<string | null>(null);
-  const R = 220;
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    let animId: number;
+    let time = 0;
+
+    const setSize = () => {
+      canvas.width = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    };
+    setSize();
+    const ro = new ResizeObserver(setSize);
+    ro.observe(canvas);
+
+    const draw = () => {
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // Core glow
+      const coreGlow = Math.abs(Math.sin(time * 0.04)) * 12 + 22;
+      const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, coreGlow * 3);
+      grad.addColorStop(0, "rgba(0,212,255,0.7)");
+      grad.addColorStop(1, "rgba(0,212,255,0)");
+      ctx.fillStyle = grad;
+      ctx.beginPath();
+      ctx.arc(cx, cy, coreGlow * 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = "#00d4ff";
+      ctx.shadowBlur = 20;
+      ctx.shadowColor = "#00d4ff";
+      ctx.beginPath();
+      ctx.arc(cx, cy, 14, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.shadowBlur = 0;
+
+      ctx.fillStyle = "#fff";
+      ctx.font = "bold 11px Orbitron, monospace";
+      ctx.textAlign = "center";
+      ctx.fillText("FOUNDER", cx, cy + 30);
+
+      orbits.forEach((orbit) => {
+        // Draw orbit ring
+        ctx.save();
+        ctx.strokeStyle = orbit.isShield
+          ? `rgba(239,68,68,${0.12 + Math.abs(Math.sin(time * 0.02)) * 0.2})`
+          : "rgba(255,255,255,0.06)";
+        ctx.lineWidth = orbit.isShield ? 2 : 1;
+        ctx.setLineDash(orbit.isShield ? [6, 4] : []);
+        ctx.beginPath();
+        ctx.arc(cx, cy, orbit.radius, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.restore();
+
+        // Draw nodes
+        orbit.nodes.forEach((node, j) => {
+          const angle = time * orbit.speed + (j * Math.PI * 2) / orbit.nodes.length;
+          const x = cx + Math.cos(angle) * orbit.radius;
+          const y = cy + Math.sin(angle) * orbit.radius;
+
+          // Node dot
+          ctx.fillStyle = orbit.color;
+          ctx.shadowBlur = 12;
+          ctx.shadowColor = orbit.color;
+          ctx.beginPath();
+          ctx.arc(x, y, orbit.isShield ? 4 : 6, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+
+          // Label
+          if (!orbit.isShield) {
+            ctx.fillStyle = "rgba(255,255,255,0.75)";
+            ctx.font = "10px Inter, sans-serif";
+            ctx.textAlign = "center";
+            ctx.fillText(node, x, y + 16);
+          }
+
+          // Occasional line to center
+          if (Math.sin(time * 0.08 + j * 1.3) > 0.97) {
+            ctx.strokeStyle = orbit.color;
+            ctx.lineWidth = 0.5;
+            ctx.globalAlpha = 0.25;
+            ctx.beginPath();
+            ctx.moveTo(cx, cy);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+        });
+      });
+
+      time += 1;
+      animId = requestAnimationFrame(draw);
+    };
+
+    draw();
+    return () => {
+      ro.disconnect();
+      cancelAnimationFrame(animId);
+    };
+  }, []);
 
   return (
-    <section id="tech-ecosystem" className="relative z-10 py-24 px-6">
-      <div className="container mx-auto max-w-5xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
+    <div
+      id="tech-ecosystem"
+      ref={containerRef}
+      className="relative z-10 flex flex-col items-center justify-start py-16 px-6 min-h-screen"
+    >
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-center mb-8"
+      >
+        <p className="text-cyan-400 font-mono text-xs tracking-[0.4em] uppercase mb-3">
+          Signature Section
+        </p>
+        <h2
+          className="text-3xl md:text-5xl font-black font-mono"
+          style={{
+            background: "linear-gradient(135deg, #00d4ff, #a855f7)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
         >
-          <p className="text-cyan-400 font-mono text-xs tracking-[0.4em] uppercase mb-3">Signature Section</p>
-          <h2
-            className="text-3xl md:text-5xl font-black font-mono"
-            style={{
-              background: "linear-gradient(135deg, #00d4ff, #a855f7)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-            }}
-          >
-            Technology Ecosystem
-          </h2>
-          <p className="text-gray-400 text-sm mt-3">Hover a category to explore the tools</p>
-        </motion.div>
+          Technology Ecosystem
+        </h2>
+        <p className="text-gray-400 text-sm mt-2">
+          Tech nodes orbit the founder core — live animation
+        </p>
+      </motion.div>
 
-        <div className="flex items-center justify-center">
-          <div className="relative" style={{ width: R * 2 + 160, height: R * 2 + 160 }}>
-            {/* Rings */}
+      <canvas
+        ref={canvasRef}
+        className="w-full rounded-2xl"
+        style={{
+          maxWidth: 1000,
+          height: 600,
+          background: "rgba(0,0,0,0.3)",
+          border: "1px solid rgba(255,255,255,0.05)",
+          backdropFilter: "blur(4px)",
+        }}
+      />
+
+      {/* Legend */}
+      <div className="flex flex-wrap gap-4 justify-center mt-6">
+        {orbits.map((o) => (
+          <div key={o.label} className="flex items-center gap-2 text-xs font-mono">
             <div
-              className="absolute rounded-full border border-cyan-500/10"
-              style={{ inset: 0, margin: 20 }}
+              className="w-2.5 h-2.5 rounded-full"
+              style={{ background: o.color, boxShadow: `0 0 8px ${o.color}` }}
             />
-            <div
-              className="absolute rounded-full border border-purple-500/10 animate-[spin_40s_linear_infinite]"
-              style={{ inset: 30 }}
-            />
-
-            {/* Center founder node */}
-            <div
-              className="absolute flex items-center justify-center"
-              style={{
-                left: "50%",
-                top: "50%",
-                transform: "translate(-50%, -50%)",
-                width: 100,
-                height: 100,
-                borderRadius: "50%",
-                background: "radial-gradient(circle, rgba(0,212,255,0.2), rgba(0,0,0,0))",
-                border: "2px solid rgba(0,212,255,0.5)",
-                boxShadow: "0 0 40px rgba(0,212,255,0.3)",
-              }}
-            >
-              <div className="text-center">
-                <div className="text-cyan-400 font-mono text-xs font-bold">FOUNDER</div>
-                <div className="text-[10px] text-gray-500 font-mono">CORE</div>
-              </div>
-            </div>
-
-            {/* Category nodes */}
-            {categories.map((cat) => {
-              const rad = ((cat.angle - 90) * Math.PI) / 180;
-              const x = Math.cos(rad) * R;
-              const y = Math.sin(rad) * R;
-              const isActive = active === cat.id;
-
-              return (
-                <div
-                  key={cat.id}
-                  className="absolute"
-                  style={{
-                    left: "50%",
-                    top: "50%",
-                    transform: `translate(calc(${x}px - 50%), calc(${y}px - 50%))`,
-                  }}
-                >
-                  {/* Connection line */}
-                  <svg
-                    className="absolute pointer-events-none"
-                    style={{
-                      position: "fixed",
-                      top: 0,
-                      left: 0,
-                      width: 0,
-                      height: 0,
-                      overflow: "visible",
-                    }}
-                  />
-
-                  {/* Sub-items */}
-                  <AnimatePresence>
-                    {isActive &&
-                      cat.items.map((item, i) => {
-                        const spread = 45;
-                        const total = cat.items.length;
-                        const offsetAngle = ((i - (total - 1) / 2) * spread * Math.PI) / 180;
-                        const outRad = rad + Math.PI + offsetAngle;
-                        const dist = 100;
-                        const sx = Math.cos(outRad) * dist;
-                        const sy = Math.sin(outRad) * dist;
-                        return (
-                          <motion.div
-                            key={item}
-                            initial={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-                            animate={{ x: sx, y: sy, opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, x: 0, y: 0, scale: 0 }}
-                            transition={{ delay: i * 0.04, type: "spring", stiffness: 300 }}
-                            className="absolute px-2 py-1 rounded-full text-[10px] font-mono whitespace-nowrap"
-                            style={{
-                              transform: `translate(calc(${sx}px - 50%), calc(${sy}px - 50%))`,
-                              background: `${cat.color}18`,
-                              border: `1px solid ${cat.color}66`,
-                              color: cat.color,
-                              boxShadow: `0 0 12px ${cat.color}33`,
-                              left: 0,
-                              top: 0,
-                            }}
-                          >
-                            {item}
-                          </motion.div>
-                        );
-                      })}
-                  </AnimatePresence>
-
-                  {/* Node button */}
-                  <motion.button
-                    onMouseEnter={() => setActive(cat.id)}
-                    onMouseLeave={() => setActive(null)}
-                    whileHover={{ scale: 1.15 }}
-                    className="px-4 py-2 rounded-full font-mono text-xs font-bold transition-all relative z-10"
-                    style={{
-                      background: isActive ? `${cat.color}33` : `${cat.color}11`,
-                      border: `1px solid ${isActive ? cat.color : cat.color + "44"}`,
-                      color: cat.color,
-                      boxShadow: isActive ? `0 0 25px ${cat.color}55` : "none",
-                      transform: "translate(-50%, -50%)",
-                    }}
-                  >
-                    {cat.label}
-                  </motion.button>
-                </div>
-              );
-            })}
+            <span style={{ color: o.color }}>{o.label}</span>
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+    </div>
   );
 }

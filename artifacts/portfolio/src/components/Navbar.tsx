@@ -1,74 +1,82 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useLocation } from "wouter";
 
 const navLinks = [
-  { name: "HOME", id: "hero" },
-  { name: "JOURNEY", id: "founder-story" },
-  { name: "COMPANY", id: "company" },
-  { name: "TECH", id: "tech-ecosystem" },
-  { name: "PROJECTS", id: "project-galaxy" },
-  { name: "ACHIEVEMENTS", id: "achievements" },
-  { name: "CONTACT", id: "contact" },
+  { name: "HOME", path: "/" },
+  { name: "JOURNEY", path: "/journey" },
+  { name: "COMPANY", path: "/company" },
+  { name: "TECH", path: "/tech" },
+  { name: "PROJECTS", path: "/projects" },
+  { name: "ACHIEVEMENTS", path: "/achievements" },
+  { name: "CONTACT", path: "/contact" },
 ];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState("hero");
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActiveSection(entry.target.id);
-        });
-      },
-      { threshold: 0.3 }
-    );
-    navLinks.forEach(({ id }) => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-  };
+  const [location, navigate] = useLocation();
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
-        scrolled ? "bg-black/70 backdrop-blur-md border-b border-white/10" : ""
-      }`}
-    >
+    <nav className="fixed top-0 left-0 right-0 z-[100] bg-black/60 backdrop-blur-md border-b border-white/10">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <span
-          className="text-cyan-400 font-mono font-bold text-xl cursor-pointer"
-          onClick={() => scrollTo("hero")}
+          className="text-cyan-400 font-mono font-bold text-xl cursor-pointer select-none"
+          onClick={() => navigate("/")}
         >
           TheCOdex<span className="animate-pulse">_</span>
         </span>
+
+        {/* Desktop */}
         <div className="hidden md:flex gap-6">
-          {navLinks.map(({ name, id }) => (
-            <button
-              key={id}
-              onClick={() => scrollTo(id)}
-              className={`text-xs font-mono tracking-widest transition-all duration-200 hover:text-cyan-400 ${
-                activeSection === id
-                  ? "text-cyan-400 border-b border-cyan-400"
-                  : "text-gray-400"
-              }`}
-            >
-              {name}
-            </button>
-          ))}
+          {navLinks.map(({ name, path }) => {
+            const isActive = path === "/" ? location === "/" : location.startsWith(path);
+            return (
+              <button
+                key={path}
+                onClick={() => navigate(path)}
+                className={`text-xs font-mono tracking-widest transition-all duration-200 hover:text-cyan-400 pb-0.5 ${
+                  isActive
+                    ? "text-cyan-400 border-b border-cyan-400"
+                    : "text-gray-400"
+                }`}
+              >
+                {name}
+              </button>
+            );
+          })}
         </div>
+
+        {/* Mobile hamburger */}
+        <button
+          className="md:hidden text-gray-400 hover:text-cyan-400 transition-colors"
+          onClick={() => setMenuOpen((v) => !v)}
+        >
+          <div className="space-y-1.5">
+            <div className={`w-6 h-0.5 bg-current transition-all ${menuOpen ? "rotate-45 translate-y-2" : ""}`} />
+            <div className={`w-6 h-0.5 bg-current transition-all ${menuOpen ? "opacity-0" : ""}`} />
+            <div className={`w-6 h-0.5 bg-current transition-all ${menuOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+          </div>
+        </button>
       </div>
+
+      {/* Mobile menu */}
+      {menuOpen && (
+        <div className="md:hidden bg-black/90 backdrop-blur-md border-t border-white/10 px-6 py-4 flex flex-col gap-4">
+          {navLinks.map(({ name, path }) => {
+            const isActive = path === "/" ? location === "/" : location.startsWith(path);
+            return (
+              <button
+                key={path}
+                onClick={() => { navigate(path); setMenuOpen(false); }}
+                className={`text-sm font-mono tracking-widest text-left transition-colors hover:text-cyan-400 ${
+                  isActive ? "text-cyan-400" : "text-gray-400"
+                }`}
+              >
+                {name}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </nav>
   );
 }
