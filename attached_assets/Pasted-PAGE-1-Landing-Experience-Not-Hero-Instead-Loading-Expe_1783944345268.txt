@@ -1,0 +1,581 @@
+PAGE 1
+Landing Experience
+
+Not Hero.
+
+Instead
+
+Loading Experience.
+
+Imagine
+
+Booting...
+
+Connecting to
+
+TheCOdex AI Core
+
+□□□□□□□□□□
+
+Loading Modules...
+
+AI
+
+Cloud
+
+Security
+
+Projects
+
+Databases
+
+Completed
+
+Welcome Founder.
+
+Duration
+
+4 seconds
+
+After that
+
+Camera zoom
+
+into
+
+Digital Universe.
+
+PAGE 2
+Hero
+
+This is the biggest attraction.
+
+NO SOLAR SYSTEM.
+
+Instead
+
+Digital Core Server
+          FIREWALL
+
+██████████████████
+
+      ENERGY SHIELD
+
+      AI CORE SERVER
+
+Founder Image
+
+Veerendra
+
+Founder
+
+TheCOdex
+
+
+Around
+
+ONE BIG CIRCLE.
+
+Not 20 circles.
+
+Inside circle
+
+Programming
+
+Frontend
+
+Backend
+
+Database
+
+AI
+
+Security
+
+Cloud
+
+Projects
+
+
+Hover
+
+Programming
+
+↓
+
+Languages expand.
+
+Hover AI
+
+↓
+
+AI tools expand.
+
+Everything animated.
+
+Background
+
+Universe
+
+Nebula
+
+Stars
+
+Particles
+
+Aurora
+
+Mouse
+
+Camera move
+
+Buttons
+
+Explore Universe
+
+Download Resume
+
+Start Mission
+
+PAGE 3
+Founder Story
+
+Instead of paragraph.
+
+Timeline.
+
+Student
+
+↓
+
+Problem Solver
+
+↓
+
+Developer
+
+↓
+
+Hackathons
+
+↓
+
+Founder
+
+↓
+
+CEO
+
+↓
+
+Building Future
+
+Left
+
+Story
+
+Right
+
+Animated Timeline.
+
+PAGE 4
+About TheCOdex
+
+Don't write paragraph.
+
+Create
+
+Company Dashboard.
+
+TheCOdex
+
+Founded
+
+Founder
+
+Projects
+
+Clients
+
+Products
+
+Countries
+
+
+Below
+
+Service Cards
+
+Web
+
+AI
+
+Cloud
+
+Cyber Security
+
+Automation
+
+Consulting
+
+Background
+
+Server Room.
+
+PAGE 5
+Technology Universe
+
+This is the signature section.
+
+Entire Screen
+
+Single Circle
+
+                    AI
+
+Cloud                    Security
+
+
+Backend     Founder      Frontend
+
+
+Database               Tools
+
+          Projects
+
+Hover
+
+AI
+
+↓
+
+Gemini
+
+OpenAI
+
+TensorFlow
+
+LangChain
+
+OpenCV
+
+Ollama
+
+appear.
+
+Same for every category.
+
+No static icons.
+
+PAGE 6
+AI Ecosystem
+
+Make
+
+AI Brain.
+
+          Gemini
+
+OpenAI
+
+Brain
+
+TensorFlow
+
+Ollama
+
+
+Each node
+
+connected.
+
+Glow.
+
+PAGE 7
+Project Galaxy
+
+Don't use cards.
+
+Create planets.
+
+Each Project
+
+Planet.
+
+Trinetra
+
+Expense Tracker
+
+CollegeHub
+
+CryptoShield
+
+AI Study
+
+
+Hover
+
+Planet
+
+↓
+
+Rotate
+
+↓
+
+Project popup
+
+↓
+
+Tech Stack
+
+↓
+
+GitHub
+
+↓
+
+Live Demo
+
+↓
+
+Case Study
+
+PAGE 8
+Innovation Timeline
+
+Animated Timeline.
+
+2023
+
+↓
+
+Started Learning
+
+↓
+
+Hackathon
+
+↓
+
+Company Started
+
+↓
+
+AI Products
+
+↓
+
+Future
+
+Rocket travels.
+
+PAGE 9
+Achievements
+
+Instead of images.
+
+Digital Vault.
+
+Certificates
+
+Awards
+
+Hackathons
+
+Open Source
+
+Experience
+
+Click
+
+↓
+
+Certificate opens.
+
+3D animation.
+
+PAGE 10
+GitHub Intelligence
+
+Show
+
+Contribution
+
+Repositories
+
+Commits
+
+Stars
+
+Languages
+
+Activity
+
+Live GitHub API.
+
+Animated graphs.
+
+PAGE 11
+Services
+
+Create
+
+Command Center.
+
+Each service
+
+Module.
+
+AI
+
+Web
+
+Cloud
+
+Automation
+
+Security
+
+UI
+
+Backend
+
+
+Hover
+
+Expand.
+
+PAGE 12
+Contact
+
+Earth Station.
+
+Communication Satellite.
+
+Satellite rotates.
+
+Contact Form
+
+looks like
+
+Mission Control.
+
+Name
+
+Mission
+
+Email
+
+Send Transmission
+
+Instead of Submit.
+
+PAGE 13
+Footer
+
+Looks like
+
+Terminal.
+
+Mission Completed
+
+Connect Again.
+
+
+Social icons
+
+Pulse.
+
+GLOBAL ANIMATIONS
+
+Stars
+
+Twinkle
+
+Nebula
+
+Move slowly.
+
+Cursor
+
+Energy trail.
+
+Buttons
+
+Glow.
+
+Cards
+
+Glassmorphism.
+
+Every section
+
+Camera transition.
+
+Smooth scroll.
+
+Every hover
+
+Sound effect.
+
+(optional)
+
+SPECIAL FEATURES
+AI Assistant
+
+Bottom Right
+
+Instead of chat.
+
+JARVIS Orb.
+
+User asks
+
+Tell me about Founder.
+
+Universe Search
+
+Search
+
+Java
+
+↓
+
+Camera moves
+
+to Java.
+
+Live Clock
+
+UTC
+
+IST
+
+Server Status
+
+Theme
+
+Dark
+
+Cyber Blue
+
+Purple
+
+Performance
+
+Lazy Loading
+
+Code Splitting
+
+Image Optimization
+
+SEO
+
+Accessibility
+
+100 Lighthouse Score
+
+FINAL GOAL
+
+The visitor should not feel like they are scrolling a portfolio. They should feel like they have entered "TheCOdex Digital Universe", where Veerendra Vishwakarma is the architect of an interconnected technology ecosystem. Every interaction should reinforce that story: the Core Server represents the founder, orbiting modules represent expertise, projects become deployed satellites, AI is a living neural network, and the company feels like a futuristic operating system rather than a traditional software agency.
