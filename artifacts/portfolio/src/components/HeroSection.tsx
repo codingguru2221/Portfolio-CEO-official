@@ -180,8 +180,8 @@ export default function HeroSection() {
           <div className="relative z-10 flex flex-col items-center gap-3 select-none">
             {/* Firewall rings */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <div className="w-56 h-56 rounded-full border border-cyan-500/30 animate-[spin_8s_linear_infinite]" />
-              <div className="absolute w-48 h-48 rounded-full border border-purple-500/20 animate-[spin_6s_linear_infinite_reverse]" />
+              <div className="w-64 h-64 rounded-full border border-cyan-500/30 animate-[spin_8s_linear_infinite]" />
+              <div className="absolute w-56 h-56 rounded-full border border-purple-500/20 animate-[spin_6s_linear_infinite_reverse]" />
             </div>
 
             {/* Profile photo */}
@@ -190,7 +190,7 @@ export default function HeroSection() {
               onMouseEnter={() => setIsHoveringPhoto(true)}
               onMouseLeave={() => setIsHoveringPhoto(false)}
             >
-              <div className="w-36 h-36 rounded-full overflow-hidden ring-2 ring-cyan-500/60 shadow-[0_0_30px_rgba(0,212,255,0.4)] relative">
+              <div className="w-44 h-44 md:w-48 md:h-48 rounded-full overflow-hidden ring-2 ring-cyan-500/60 shadow-[0_0_40px_rgba(0,212,255,0.45)] relative">
                 <img
                   src={photo1}
                   alt="Veerendra"
@@ -202,13 +202,22 @@ export default function HeroSection() {
                   className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHoveringPhoto ? "opacity-100" : "opacity-0"}`}
                 />
               </div>
-              <div className="absolute -bottom-1 -right-1 bg-green-500 w-4 h-4 rounded-full border-2 border-black animate-pulse" />
+              <div className="absolute -bottom-1 -right-1 bg-green-500 w-5 h-5 rounded-full border-2 border-black animate-pulse" />
             </div>
 
             <div className="text-center">
-              <div className="text-xs font-mono text-cyan-400/60 tracking-[0.3em] uppercase">Founder</div>
-              <div className="text-lg font-bold text-white font-mono">Veerendra</div>
-              <div className="text-xs text-purple-400 font-mono tracking-widest">TheCOdex</div>
+              <div className="text-xs font-mono text-cyan-400/60 tracking-[0.24em] uppercase">Founder &amp; CEO</div>
+              <div className="text-xl font-bold text-white font-mono">Veerendra Vishwakarma</div>
+              <div className="mt-2 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
+                <img
+                  src="/thecodex-logo.png"
+                  alt="TheCOdex Software Solutions logo"
+                  className="h-6 w-6 rounded-full object-cover bg-white"
+                />
+                <span className="text-[11px] text-purple-300 font-mono tracking-widest">
+                  TheCOdex Software Solutions
+                </span>
+              </div>
             </div>
           </div>
         </div>
@@ -233,9 +242,16 @@ export default function HeroSection() {
           <p className="text-cyan-400 font-mono tracking-[0.2em] text-lg mb-1">
             FOUNDER &amp; CEO
           </p>
-          <p className="text-purple-400/80 font-mono text-sm tracking-widest mb-2">
-            TheCOdex Software Solutions
-          </p>
+          <div className="mb-3 flex items-center justify-center gap-3">
+            <img
+              src="/thecodex-logo.png"
+              alt="TheCOdex Software Solutions logo"
+              className="h-10 w-10 rounded-full bg-white object-cover p-0.5 shadow-[0_0_20px_rgba(0,102,255,0.35)]"
+            />
+            <p className="text-purple-300 font-mono text-sm md:text-base tracking-widest">
+              TheCOdex Software Solutions
+            </p>
+          </div>
           <p className="text-gray-400 text-sm italic max-w-lg mx-auto">
             "Architecting the Digital Future | Engineering Solutions That Scale"
           </p>
