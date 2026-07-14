@@ -26,6 +26,9 @@ export default function CursorTrail() {
     const trail: Point[] = [];
     let mouseX = width / 2;
     let mouseY = height / 2;
+    let previousMouseX = mouseX;
+    let previousMouseY = mouseY;
+    let rocketAngle = -Math.PI / 4;
 
     const move = (e: MouseEvent) => {
       mouseX = e.clientX;
@@ -47,31 +50,80 @@ export default function CursorTrail() {
         const p = trail[i];
         p.age++;
         
-        const t = Math.max(0, 1 - p.age / 20);
+        const t = Math.max(0, 1 - p.age / 24);
         const opacity = t;
-        ctx.fillStyle = `rgba(0, 212, 255, ${opacity})`;
+        ctx.fillStyle = `rgba(0, 212, 255, ${opacity * 0.7})`;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, Math.max(0, t * 4), 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, Math.max(0, t * 5), 0, Math.PI * 2);
         ctx.fill();
       }
 
-      // Main cursor dot
-      ctx.fillStyle = "#00d4ff";
+      const dx = mouseX - previousMouseX;
+      const dy = mouseY - previousMouseY;
+
+      if (Math.hypot(dx, dy) > 1) {
+        rocketAngle = Math.atan2(dy, dx) + Math.PI / 2;
+        previousMouseX = mouseX;
+        previousMouseY = mouseY;
+      }
+
+      ctx.save();
+      ctx.translate(mouseX, mouseY);
+      ctx.rotate(rocketAngle);
+      ctx.shadowColor = "rgba(0, 212, 255, 0.75)";
+      ctx.shadowBlur = 16;
+
+      // Flame
+      const flamePulse = 1 + Math.sin(Date.now() / 70) * 0.2;
+      const flameGradient = ctx.createLinearGradient(0, 13, 0, 27);
+      flameGradient.addColorStop(0, "rgba(255, 255, 255, 0.95)");
+      flameGradient.addColorStop(0.35, "rgba(0, 212, 255, 0.9)");
+      flameGradient.addColorStop(1, "rgba(168, 85, 247, 0)");
+      ctx.fillStyle = flameGradient;
       ctx.beginPath();
-      ctx.arc(mouseX, mouseY, 4, 0, Math.PI * 2);
+      ctx.moveTo(-5, 12);
+      ctx.quadraticCurveTo(0, 27 * flamePulse, 5, 12);
+      ctx.closePath();
       ctx.fill();
-      
-      // Crosshair
-      ctx.strokeStyle = "rgba(0, 212, 255, 0.5)";
-      ctx.lineWidth = 1;
+
+      // Rocket body
+      ctx.fillStyle = "#f8fafc";
+      ctx.strokeStyle = "rgba(0, 212, 255, 0.85)";
+      ctx.lineWidth = 1.4;
       ctx.beginPath();
-      ctx.moveTo(mouseX - 10, mouseY);
-      ctx.lineTo(mouseX + 10, mouseY);
-      ctx.moveTo(mouseX, mouseY - 10);
-      ctx.lineTo(mouseX, mouseY + 10);
+      ctx.moveTo(0, -17);
+      ctx.quadraticCurveTo(12, -4, 7, 12);
+      ctx.lineTo(-7, 12);
+      ctx.quadraticCurveTo(-12, -4, 0, -17);
+      ctx.closePath();
+      ctx.fill();
       ctx.stroke();
 
-      while (trail.length > 0 && trail[0].age > 20) {
+      // Window
+      ctx.fillStyle = "#00d4ff";
+      ctx.beginPath();
+      ctx.arc(0, -5, 3.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Fins
+      ctx.fillStyle = "#a855f7";
+      ctx.beginPath();
+      ctx.moveTo(-7, 8);
+      ctx.lineTo(-15, 16);
+      ctx.lineTo(-5, 14);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.moveTo(7, 8);
+      ctx.lineTo(15, 16);
+      ctx.lineTo(5, 14);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.restore();
+
+      while (trail.length > 0 && trail[0].age > 24) {
         trail.shift();
       }
 
